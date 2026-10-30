@@ -1,16 +1,8 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 import { AnimatedText } from './AnimatedText';
-import { ContactButton } from './ContactButton';
 
 export const AboutSection: React.FC = () => {
-  const scrollToContact = () => {
-    const el = document.getElementById('contact');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
     <section
       id="about"
@@ -37,13 +29,6 @@ export const AboutSection: React.FC = () => {
             text="С более чем пятилетним опытом во флористике мы создаем авторские композиции из отборных свежих цветов, уделяя внимание каждой детали. Мы искренне любим радовать ваших близких, передавать искренние чувства и создавать букеты, которые запоминаются навсегда. Давайте дарить красоту вместе!"
             className="text-[#D7E2EA] font-medium leading-relaxed max-w-[640px] text-center text-sm sm:text-base md:text-lg"
           />
-        </div>
-
-        {/* Button */}
-        <div className="mt-8 sm:mt-10 md:mt-12">
-          <FadeIn delay={0.15} y={15}>
-            <ContactButton onClick={scrollToContact} label="Связаться с нами" />
-          </FadeIn>
         </div>
       </div>
     </section>
