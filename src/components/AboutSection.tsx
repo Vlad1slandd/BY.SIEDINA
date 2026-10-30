@@ -16,8 +16,8 @@ export const AboutSection: React.FC = () => {
       id="about"
       className="relative w-full flex flex-col justify-center items-center px-4 sm:px-8 md:px-10 py-12 sm:py-16 md:py-20 bg-gradient-to-b from-[#1A1322] via-[#1E1427] to-[#22162B] overflow-hidden -mt-[2px]"
     >
-      {/* Декоративное мягкое свечение по центру */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[250px] sm:h-[350px] bg-gradient-to-tr from-white/5 via-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
+      {/* Декоративное мягкое свечение по центру (легкий радиальный градиент) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[500px] h-[250px] sm:h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06)_0%,rgba(168,85,247,0.05)_40%,transparent_70%)] rounded-full pointer-events-none" />
 
       {/* Central Content */}
       <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto px-2">

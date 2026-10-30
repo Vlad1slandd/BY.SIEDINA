@@ -23,8 +23,8 @@ export const HeroSection: React.FC = () => {
 
   return (
     <section className="relative min-h-[100dvh] h-[100dvh] w-full flex flex-col justify-between overflow-x-clip bg-gradient-to-b from-[#140F17] via-[#151019] to-[#17111D]">
-      {/* Мягкое фоновое цветочное свечение */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] bg-white/5 blur-[120px] pointer-events-none -z-10" />
+      {/* Мягкое фоновое цветочное свечение (аппаратно-ускоренный радиальный градиент) */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06)_0%,transparent_70%)] pointer-events-none -z-10" />
       {/* Navbar */}
       <FadeIn as="nav" delay={0} y={-20} className="w-full z-20">
         <div className="flex justify-between items-center w-full px-5 sm:px-8 md:px-14 lg:px-20 pt-5 sm:pt-7 md:pt-9 gap-3 sm:gap-6">

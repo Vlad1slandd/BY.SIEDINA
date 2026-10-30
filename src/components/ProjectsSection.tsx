@@ -427,17 +427,18 @@ export const ProjectsSection: React.FC = () => {
                           src={b.image}
                           alt={b.name}
                           loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                         />
                         {/* Бейдж статуса */}
-                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/60 backdrop-blur-md border border-white/10 text-[11px] font-medium text-white uppercase tracking-wider">
+                        <div className="absolute top-3 left-3 px-2.5 py-1 rounded-md bg-black/80 sm:bg-black/60 sm:backdrop-blur-md border border-white/10 text-[11px] font-medium text-white uppercase tracking-wider">
                           {b.tag}
                         </div>
                         {/* Лайк кнопка */}
                         <button
                           onClick={() => toggleFavorite(b.id)}
                           aria-label="В избранное"
-                          className="absolute top-3 right-3 p-2 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white/80 hover:text-rose-400 transition-colors"
+                          className="absolute top-3 right-3 p-2 rounded-full bg-black/75 sm:bg-black/50 sm:backdrop-blur-md border border-white/10 text-white/80 hover:text-rose-400 transition-colors"
                         >
                           <Heart
                             className={`w-4 h-4 ${isLiked ? 'fill-rose-500 text-rose-500' : ''}`}
@@ -527,7 +528,7 @@ export const ProjectsSection: React.FC = () => {
 
           {/* --- ПРАВАЯ ПОЛОВИНА: КАЛЬКУЛЯТОР БУКЕТА (5 КОЛОНОК, STICKY) --- */}
           <div className="lg:col-span-5" id="bouquet-calculator">
-            <div className="sticky top-24 bg-[#141518]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-5 sm:p-7 shadow-2xl flex flex-col gap-6">
+            <div className="sticky top-24 bg-[#141518] sm:bg-[#141518]/95 sm:backdrop-blur-xl border border-white/10 rounded-3xl p-5 sm:p-7 shadow-2xl flex flex-col gap-6">
               
               {/* Заголовок калькулятора */}
               <div className="flex items-center justify-between pb-4 border-b border-white/10">

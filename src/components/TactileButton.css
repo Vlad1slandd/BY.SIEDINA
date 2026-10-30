@@ -198,3 +198,16 @@
     background-color: #F472B6;
   }
 }
+
+/* Оптимизация для мобильных устройств: отключение тяжелых SVG фильтров (feTurbulence) */
+@media (max-width: 768px), (pointer: coarse) {
+  .tactile-fabric {
+    filter: none !important;
+    opacity: 0.15;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.25) 1px, transparent 0);
+    background-size: 4px 4px;
+  }
+  .tactile-btn::before {
+    filter: none !important;
+  }
+}

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
 
 interface AnimatedTextProps {
@@ -6,23 +6,23 @@ interface AnimatedTextProps {
   className?: string;
 }
 
-interface CharProps {
-  char: string;
+interface WordProps {
+  word: string;
   progress: MotionValue<number>;
   range: [number, number];
 }
 
-const AnimatedChar: React.FC<CharProps> = ({ char, progress, range }) => {
-  const opacity = useTransform(progress, range, [0.2, 1]);
+const AnimatedWord: React.FC<WordProps> = ({ word, progress, range }) => {
+  const opacity = useTransform(progress, range, [0.25, 1]);
 
   return (
-    <span className="relative inline-block">
-      <span className="opacity-0">{char === ' ' ? '\u00A0' : char}</span>
+    <span className="relative inline-block mx-1">
+      <span className="opacity-0">{word}</span>
       <motion.span
         style={{ opacity }}
         className="absolute inset-0"
       >
-        {char === ' ' ? '\u00A0' : char}
+        {word}
       </motion.span>
     </span>
   );
@@ -33,11 +33,11 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text, className = ''
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ['start 0.8', 'end 0.2'],
+    offset: ['start 0.85', 'end 0.25'],
   });
 
-  const characters = text.split('');
-  const totalChars = characters.length;
+  const words = useMemo(() => text.split(/\s+/), [text]);
+  const totalWords = words.length;
 
   return (
     <p
@@ -45,14 +45,14 @@ export const AnimatedText: React.FC<AnimatedTextProps> = ({ text, className = ''
       className={`relative flex flex-wrap justify-center text-center ${className}`}
       style={{ fontSize: 'clamp(1rem, 2vw, 1.35rem)' }}
     >
-      {characters.map((char, index) => {
-        const start = index / totalChars;
+      {words.map((word, index) => {
+        const start = index / totalWords;
         const end = Math.min(1, start + 0.15);
 
         return (
-          <AnimatedChar
+          <AnimatedWord
             key={index}
-            char={char}
+            word={word}
             progress={scrollYProgress}
             range={[start, end]}
           />

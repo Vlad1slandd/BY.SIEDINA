@@ -53,6 +53,11 @@ export const Magnet: React.FC<MagnetProps> = ({
   }, []);
 
   useEffect(() => {
+    // Only bind on desktop devices with fine pointer (mouse)
+    if (typeof window === 'undefined' || !window.matchMedia('(pointer: fine)').matches) {
+      return;
+    }
+
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave);
 
