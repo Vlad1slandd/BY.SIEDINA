@@ -61,22 +61,20 @@ export const CartModal: React.FC = () => {
   // Генерация ссылки для прямого оформления в @by_siedina_bot с подтягиванием состава заказа
   const buildBotLink = () => {
     try {
-      const orderPayload = {
-        items: items.map((item) => ({
-          title: item.title,
-          quantity: item.quantity,
-          price: item.price,
-          details: item.details || '',
-        })),
-      };
-      const jsonString = JSON.stringify(orderPayload);
-      const base64Data = btoa(
-        encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (_, p1) =>
-          String.fromCharCode(parseInt(p1, 16))
-        )
-      );
-      const urlSafe = base64Data.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-      return `https://t.me/by_siedina_bot?start=order_${urlSafe}`;
+      // Telegram start param allows MAX 64 characters (a-zA-Z0-9_-)
+      // Генерируем компактный токен состава заказа: например "b1-1_b3-2" или "c-4900-1"
+      const tokens: string[] = [];
+      items.forEach((item) => {
+        if (item.type === 'ready' && item.id.startsWith('b')) {
+          tokens.push(`${item.id}-${item.quantity}`);
+        } else if (item.type === 'custom') {
+          tokens.push(`c-${item.price}-${item.quantity}`);
+        } else {
+          tokens.push(`p-${item.price}-${item.quantity}`);
+        }
+      });
+      const compactParam = tokens.join('_').slice(0, 50);
+      return `https://t.me/by_siedina_bot?start=o_${compactParam}`;
     } catch {
       return `https://t.me/by_siedina_bot`;
     }

@@ -359,24 +359,8 @@ export const ProjectsSection: React.FC = () => {
   const tgLink = useMemo(() => {
     if (!orderSummary) return 'https://t.me/by_siedina_bot';
     try {
-      const orderPayload = {
-        items: [
-          {
-            title: orderSummary.title,
-            quantity: 1,
-            price: orderSummary.totalPrice,
-            details: orderSummary.details || '',
-          },
-        ],
-      };
-      const jsonString = JSON.stringify(orderPayload);
-      const base64Data = btoa(
-        encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (_, p1) =>
-          String.fromCharCode(parseInt(p1, 16))
-        )
-      );
-      const urlSafe = base64Data.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-      return `https://t.me/by_siedina_bot?start=order_${urlSafe}`;
+      // Компактный токен: o_c-ЦЕНА-1 (до 15 символов, Telegram не обрезает)
+      return `https://t.me/by_siedina_bot?start=o_c-${orderSummary.totalPrice}-1`;
     } catch {
       return `https://t.me/by_siedina_bot`;
     }
