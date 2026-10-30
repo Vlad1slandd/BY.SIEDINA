@@ -39,9 +39,9 @@ export const ServicesSection: React.FC = () => {
   return (
     <section
       id="services"
-      className="relative w-full text-[#1E1424] px-4 sm:px-8 md:px-10 py-24 sm:py-32 md:py-40 -mt-[2px]"
+      className="relative w-full text-[#1E1424] px-4 sm:px-8 md:px-10 pt-36 sm:pt-44 md:pt-52 pb-36 sm:pb-44 md:pb-52 -mt-[2px]"
       style={{
-        background: 'linear-gradient(180deg, #22162B 0%, rgba(34, 22, 43, 0.98) 30px, #FAF4F6 220px, #FAF4F6 calc(100% - 220px), rgba(28, 19, 36, 0.98) calc(100% - 30px), #1C1324 100%)',
+        background: 'linear-gradient(180deg, #22162B 0%, #352340 28px, #75577D 60px, #CDBFCC 92px, #FAF4F6 120px, #FAF4F6 calc(100% - 120px), #CDBFCC calc(100% - 92px), #75577D calc(100% - 60px), #2A1C33 calc(100% - 28px), #1C1324 100%)',
       }}
     >
       {/* Контент секции */}
