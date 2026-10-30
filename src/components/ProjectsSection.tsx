@@ -181,7 +181,7 @@ const PACKAGING_OPTIONS = [
 ] as const;
 
 export const ProjectsSection: React.FC = () => {
-  const { addItem } = useCart();
+  const { items, addItem, updateQuantity } = useCart();
   // Фильтр для готовых букетов
   const [activeTab, setActiveTab] = useState<'all' | 'authors' | 'hits' | 'boxes'>('all');
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
@@ -416,6 +416,8 @@ export const ProjectsSection: React.FC = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
               {filteredBouquets.map((b, idx) => {
                 const isLiked = favoriteIds.includes(b.id);
+                const cartItem = items.find((i) => i.type === 'ready' && i.title === `Букет «${b.name}»`);
+                const qtyInCart = cartItem ? cartItem.quantity : 0;
                 return (
                   <FadeIn key={b.id} delay={idx * 0.08} y={20}>
                     <div className="group relative bg-[#131416] border border-white/10 rounded-2xl overflow-hidden hover:border-white/25 transition-all duration-300 flex flex-col h-full shadow-lg">
@@ -473,17 +475,43 @@ export const ProjectsSection: React.FC = () => {
 
                         {/* Кнопки действий */}
                         <div className="pt-3 border-t border-white/5 flex items-center gap-2">
-                          <button
-                            onClick={() => handleAddToCart(b)}
-                            className="flex-1 py-2 px-3 rounded-xl bg-white text-black text-xs sm:text-sm font-semibold hover:bg-neutral-200 transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
-                          >
-                            <ShoppingBag className="w-3.5 h-3.5" />
-                            В корзину
-                          </button>
+                          {qtyInCart > 0 ? (
+                            /* Селектор количества прямо на карточке товара */
+                            <div className="flex-1 flex items-center justify-between bg-white text-black rounded-xl p-1 shadow-md">
+                              <button
+                                onClick={() => updateQuantity(cartItem!.id, -1)}
+                                className="w-8 h-8 rounded-lg bg-black/5 hover:bg-black/10 active:scale-95 text-black flex items-center justify-center transition-all cursor-pointer font-bold"
+                                title="Уменьшить"
+                              >
+                                <Minus className="w-3.5 h-3.5" />
+                              </button>
+                              <div className="flex items-center gap-1.5 px-1 select-none">
+                                <span className="text-xs text-neutral-600 font-medium hidden xs:inline">В корзине:</span>
+                                <span className="text-sm font-black text-black">
+                                  {qtyInCart} шт
+                                </span>
+                              </div>
+                              <button
+                                onClick={() => updateQuantity(cartItem!.id, 1)}
+                                className="w-8 h-8 rounded-lg bg-black text-white hover:bg-neutral-800 active:scale-95 flex items-center justify-center transition-all cursor-pointer font-bold shadow-sm"
+                                title="Добавить еще"
+                              >
+                                <Plus className="w-3.5 h-3.5" />
+                              </button>
+                            </div>
+                          ) : (
+                            <button
+                              onClick={() => handleAddToCart(b)}
+                              className="flex-1 py-2 px-3 rounded-xl bg-white text-black text-xs sm:text-sm font-semibold hover:bg-neutral-200 transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                            >
+                              <ShoppingBag className="w-3.5 h-3.5" />
+                              В корзину
+                            </button>
+                          )}
                           <button
                             onClick={() => loadPresetIntoCalculator(b.calcPreset)}
                             title="Перенести состав в конструктор"
-                            className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm text-neutral-300 hover:text-white transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
+                            className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm text-neutral-300 hover:text-white transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer shrink-0"
                           >
                             <Sliders className="w-3.5 h-3.5 text-[#BBCCD7]" />
                             <span className="hidden sm:inline">В конструктор</span>
@@ -711,7 +739,11 @@ export const ProjectsSection: React.FC = () => {
                   }`}
                 >
                   <ShoppingBag className="w-4 h-4" />
-                  Добавить букет в корзину
+                  {items.some((i) => i.type === 'custom') ? (
+                    <span>Добавить еще букет в корзину ({items.filter((i) => i.type === 'custom').length} в корзине)</span>
+                  ) : (
+                    <span>Добавить букет в корзину</span>
+                  )}
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
               </div>
