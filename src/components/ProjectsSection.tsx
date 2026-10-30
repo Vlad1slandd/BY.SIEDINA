@@ -353,15 +353,33 @@ export const ProjectsSection: React.FC = () => {
     const text = encodeURIComponent(
       `Здравствуйте! Хочу заказать букет в студии By Siedina:\n\n*${orderSummary.title}*\n${orderSummary.details}\n\n*Итого: ${orderSummary.totalPrice.toLocaleString('ru-RU')} ₽*`
     );
-    return `https://wa.me/79880000000?text=${text}`;
+    return `https://wa.me/79675015113?text=${text}`;
   }, [orderSummary]);
 
   const tgLink = useMemo(() => {
-    if (!orderSummary) return '';
-    const text = encodeURIComponent(
-      `Здравствуйте! Хочу заказать букет в By Siedina:\n\n${orderSummary.title}\n${orderSummary.details}\nИтого: ${orderSummary.totalPrice.toLocaleString('ru-RU')} ₽`
-    );
-    return `https://t.me/share/url?url=https://bysiedina.ru&text=${text}`;
+    if (!orderSummary) return 'https://t.me/by_siedina_bot';
+    try {
+      const orderPayload = {
+        items: [
+          {
+            title: orderSummary.title,
+            quantity: 1,
+            price: orderSummary.totalPrice,
+            details: orderSummary.details || '',
+          },
+        ],
+      };
+      const jsonString = JSON.stringify(orderPayload);
+      const base64Data = btoa(
+        encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (_, p1) =>
+          String.fromCharCode(parseInt(p1, 16))
+        )
+      );
+      const urlSafe = base64Data.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      return `https://t.me/by_siedina_bot?start=order_${urlSafe}`;
+    } catch {
+      return `https://t.me/by_siedina_bot`;
+    }
   }, [orderSummary]);
 
   return (
@@ -810,15 +828,15 @@ export const ProjectsSection: React.FC = () => {
                   className="w-full py-3 px-4 rounded-xl bg-[#229ED9] text-white font-bold text-sm flex items-center justify-center gap-2 hover:bg-[#1e8dbf] transition-colors"
                 >
                   <Send className="w-4 h-4" />
-                  Отправить в Telegram
+                  Оформить в Telegram-боте
                 </a>
 
                 <a
-                  href="tel:+79880000000"
+                  href="tel:+79675015113"
                   className="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-neutral-200 font-semibold text-xs sm:text-sm flex items-center justify-center gap-2 transition-colors border border-white/10"
                 >
                   <Phone className="w-4 h-4" />
-                  Позвонить флористу: +7 (988) 000-00-00
+                  Позвонить флористу: +7 (967) 501-51-13
                 </a>
               </div>
             </motion.div>

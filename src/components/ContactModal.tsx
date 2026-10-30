@@ -48,7 +48,7 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
         <div className="flex flex-col gap-3">
           {/* Telegram */}
           <a
-            href="https://t.me/by_siedina"
+            href="https://t.me/by_siedina_bot"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center justify-between p-3.5 sm:p-4 rounded-2xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-sky-400/40 transition-all duration-300 cursor-pointer"
@@ -59,10 +59,10 @@ export const ContactModal: React.FC<ContactModalProps> = ({ isOpen, onClose }) =
               </div>
               <div className="flex flex-col text-left">
                 <span className="text-sm sm:text-base font-bold text-white group-hover:text-sky-300 transition-colors">
-                  Написать в Telegram
+                  Открыть Telegram-бота
                 </span>
                 <span className="text-xs text-neutral-400 font-light">
-                  @by_siedina • быстрый ответ
+                  @by_siedina_bot • прием заказов
                 </span>
               </div>
             </div>

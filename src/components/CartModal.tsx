@@ -56,7 +56,7 @@ export const CartModal: React.FC = () => {
 
   const encodedText = encodeURIComponent(buildOrderText());
   const waLink = `https://wa.me/79675015113?text=${encodedText}`;
-  const tgLink = `https://t.me/by_siedina?text=${encodedText}`;
+  const tgLink = `https://t.me/by_siedina_bot`;
 
   // Генерация ссылки для прямого оформления в @by_siedina_bot с подтягиванием состава заказа
   const buildBotLink = () => {
@@ -343,7 +343,7 @@ export const CartModal: React.FC = () => {
                   Отправить заказ в WhatsApp
                 </a>
 
-                {/* 3. Отправка менеджеру в Telegram */}
+                {/* 3. Открыть бота напрямую */}
                 <a
                   href={tgLink}
                   target="_blank"
@@ -351,7 +351,7 @@ export const CartModal: React.FC = () => {
                   className="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  Написать напрямую менеджеру @by_siedina
+                  Написать в Telegram @by_siedina_bot
                 </a>
 
                 <a
