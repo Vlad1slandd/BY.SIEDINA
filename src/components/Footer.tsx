@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ContactButton } from './ContactButton';
 import { FadeIn } from './FadeIn';
+import { ContactModal } from './ContactModal';
 
 interface FooterProps {
   onOpenPrivacy: () => void;
@@ -11,6 +12,8 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenPrivacy,
   onOpenCookies,
 }) => {
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+
   return (
     <footer id="contact" className="relative z-20 -mt-[2px] overflow-hidden">
       {/* 1. Блок контактов и призыва к действию (Темный бархатный аметист) */}
@@ -23,7 +26,7 @@ export const Footer: React.FC<FooterProps> = ({
             Нужна консультация флориста или хотите заказать индивидуальный букет? Мы всегда на связи и с радостью поможем.
           </p>
           <div className="pt-2">
-            <ContactButton onClick={() => window.location.href = 'tel:+79675015113'} label="Связаться с нами" />
+            <ContactButton onClick={() => setIsContactModalOpen(true)} label="Связаться с нами" />
           </div>
         </FadeIn>
       </div>
@@ -40,7 +43,7 @@ export const Footer: React.FC<FooterProps> = ({
       <div className="bg-[#FAF4F6] text-[#22162B] pb-10 sm:pb-14 pt-4 px-6 sm:px-10 -mt-[2px] relative z-10">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8 text-center md:text-left">
           
-          {/* Левая колонка: Бренд + розовая точка + копирайт */}
+          {/* Левая колонка: Бренд + темная точка + копирайт */}
           <div className="flex flex-col items-center md:items-start gap-1.5 shrink-0">
             <div className="flex items-center gap-2">
               <span className="font-black text-xl sm:text-2xl uppercase tracking-wider text-[#1C1222]">
@@ -93,6 +96,12 @@ export const Footer: React.FC<FooterProps> = ({
 
         </div>
       </div>
+
+      {/* Модальное окно прямых контактов (Telegram, WhatsApp, Звонок) */}
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </footer>
   );
 };
