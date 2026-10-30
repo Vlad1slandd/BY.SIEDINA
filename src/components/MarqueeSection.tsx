@@ -1,25 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 
+const BASE = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+
 // Реальные фотографии и отзывы букетов цветочной студии By Siedina с Яндекс Карт
-const marqueeImages = [
-  '/gallery/photo-1.jpg',
-  '/gallery/photo-2.jpg',
-  '/gallery/photo-3.jpg',
-  '/gallery/photo-4.jpg',
-  '/gallery/photo-5.jpg',
-  '/gallery/photo-6.jpg',
-  '/gallery/photo-7.jpg',
-  '/gallery/photo-8.jpg',
-  '/gallery/photo-9.jpg',
-  '/gallery/photo-10.jpg',
-  '/gallery/photo-11.jpg',
-  '/gallery/photo-12.jpg',
-  '/gallery/photo-13.jpg',
-  '/gallery/photo-14.jpg',
-  '/gallery/photo-15.jpg',
-  '/gallery/photo-16.jpg',
-  '/gallery/photo-17.jpg',
-];
+const marqueeImages = Array.from({ length: 17 }, (_, i) => `${BASE}gallery/photo-${i + 1}.jpg`);
 
 const row1Images = marqueeImages.slice(0, 9);
 const row2Images = marqueeImages.slice(9);

@@ -43,6 +43,8 @@ interface ReadyBouquet {
   };
 }
 
+const BASE = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : `${import.meta.env.BASE_URL}/`;
+
 const readyBouquets: ReadyBouquet[] = [
   {
     id: 'b1',
@@ -50,7 +52,7 @@ const readyBouquets: ReadyBouquet[] = [
     price: 4900,
     category: 'hits',
     tag: 'Хит сезона',
-    image: '/gallery/photo-1.jpg',
+    image: `${BASE}gallery/photo-1.jpg`,
     composition: ['Гортензия шаровидная', 'Пионовидные розы', 'Эвкалипт цинерея'],
     description: 'Воздушный и нежный авторский букет в пастельных тонах с акцентной небесной гортензией.',
     calcPreset: {
@@ -67,7 +69,7 @@ const readyBouquets: ReadyBouquet[] = [
     price: 4400,
     category: 'authors',
     tag: 'Авторский',
-    image: '/gallery/photo-4.jpg',
+    image: `${BASE}gallery/photo-4.jpg`,
     composition: ['Французские розы', 'Сортовой диантус', 'Свежая фисташка'],
     description: 'Стильная композиция в пудровой гамме, передающая искреннее тепло и внимание к деталям.',
     calcPreset: {
@@ -83,7 +85,7 @@ const readyBouquets: ReadyBouquet[] = [
     price: 6200,
     category: 'boxes',
     tag: 'В шляпной коробке',
-    image: '/gallery/photo-6.jpg',
+    image: `${BASE}gallery/photo-6.jpg`,
     composition: ['Сортовые пионы', 'Белая гортензия', 'Эвкалипт', 'Шляпная коробка'],
     description: 'Роскошная композиция в шляпной коробке Deluxe. Не требует вазы — внутри специальный оазис.',
     calcPreset: {
@@ -99,7 +101,7 @@ const readyBouquets: ReadyBouquet[] = [
     price: 5700,
     category: 'hits',
     tag: 'Популярно',
-    image: '/gallery/photo-8.jpg',
+    image: `${BASE}gallery/photo-8.jpg`,
     composition: ['Пионовидные кустовые розы', 'Эустома', 'Натуральный хлопок'],
     description: 'Пышный букет с богатой текстурой и тонким цветочным ароматом для особого повода.',
     calcPreset: {
@@ -115,7 +117,7 @@ const readyBouquets: ReadyBouquet[] = [
     price: 4200,
     category: 'authors',
     tag: 'Новинка',
-    image: '/gallery/photo-11.jpg',
+    image: `${BASE}gallery/photo-11.jpg`,
     composition: ['Коралловые розы', 'Белая гипсофила', 'Атласная лента'],
     description: 'Яркий и жизнерадостный букет, который гарантированно вызовет улыбку и восторг.',
     calcPreset: {
@@ -130,7 +132,7 @@ const readyBouquets: ReadyBouquet[] = [
     price: 7800,
     category: 'boxes',
     tag: 'Премиум',
-    image: '/gallery/photo-12.jpg',
+    image: `${BASE}gallery/photo-12.jpg`,
     composition: ['Премиальные пионы', 'Гортензии', 'Эвкалипт', 'Шляпная коробка'],
     description: 'Грандиозный подарок для признания в чувствах или юбилея. Максимальная пышность и стойкость.',
     calcPreset: {
