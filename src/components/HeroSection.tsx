@@ -49,7 +49,7 @@ export const HeroSection: React.FC = () => {
           >
             <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6" />
             {totalCount > 0 && (
-              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-rose-600 text-white text-[10px] font-black flex items-center justify-center shadow-md animate-pulse">
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-white text-black text-[10px] font-black flex items-center justify-center shadow-md">
                 {totalCount}
               </span>
             )}

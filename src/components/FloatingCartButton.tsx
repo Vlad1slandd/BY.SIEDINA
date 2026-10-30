@@ -18,7 +18,7 @@ export const FloatingCartButton: React.FC = () => {
           <div className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center">
             <ShoppingBag className="w-4 h-4" />
           </div>
-          <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-rose-600 text-white text-[11px] font-black flex items-center justify-center shadow-md">
+          <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-black text-white border border-white text-[11px] font-black flex items-center justify-center shadow-md">
             {totalCount}
           </span>
         </div>

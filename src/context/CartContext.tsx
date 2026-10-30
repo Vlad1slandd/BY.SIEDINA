@@ -63,7 +63,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       };
       return [...prev, newItem];
     });
-    setIsOpen(true);
+    // Не открываем корзину автоматически — клиент откроет её сам кликом по кнопке в правом нижнем углу
   };
 
   const updateQuantity = (id: string, delta: number) => {
