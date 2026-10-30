@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FadeIn } from './FadeIn';
 import { ContactButton } from './ContactButton';
 import { ShoppingBag } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { ContactModal } from './ContactModal';
 
 export const HeroSection: React.FC = () => {
   const { totalCount, openCart } = useCart();
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
@@ -25,6 +27,7 @@ export const HeroSection: React.FC = () => {
     <section className="relative min-h-[100dvh] h-[100dvh] w-full flex flex-col justify-between overflow-x-clip bg-gradient-to-b from-[#140F17] via-[#151019] to-[#17111D]">
       {/* Мягкое фоновое цветочное свечение (аппаратно-ускоренный радиальный градиент) */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[350px] bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.06)_0%,transparent_70%)] pointer-events-none -z-10" />
+      
       {/* Navbar */}
       <FadeIn as="nav" delay={0} y={-20} className="w-full z-20">
         <div className="flex justify-between items-center w-full px-5 sm:px-8 md:px-14 lg:px-20 pt-5 sm:pt-7 md:pt-9 gap-3 sm:gap-6">
@@ -85,11 +88,17 @@ export const HeroSection: React.FC = () => {
           </p>
         </FadeIn>
 
-        {/* Кнопка строго по центру */}
+        {/* Кнопка строго по центру: открывает модальное окно контактов без скролла в подвал */}
         <FadeIn delay={0.5} y={20} className="w-full flex justify-center items-center">
-          <ContactButton onClick={() => scrollTo('contact')} />
+          <ContactButton onClick={() => setIsContactModalOpen(true)} label="Связаться с нами" />
         </FadeIn>
       </div>
+
+      {/* Модальное окно прямых контактов (Telegram, WhatsApp, Звонок) */}
+      <ContactModal
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </section>
   );
 };

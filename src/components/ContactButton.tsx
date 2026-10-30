@@ -5,14 +5,12 @@ interface ContactButtonProps {
   className?: string;
   onClick?: () => void;
   label?: string;
-  activeLabel?: string;
 }
 
 export const ContactButton: React.FC<ContactButtonProps> = ({
   className = '',
   onClick,
   label = 'Связаться с нами',
-  activeLabel = 'На связи 🌸',
 }) => {
   return (
     <div className={`inline-block relative my-3 ${className}`}>
@@ -96,11 +94,17 @@ export const ContactButton: React.FC<ContactButtonProps> = ({
       </svg>
 
       {/* Button component based on Uiverse dexter-st with site color theme */}
-      <button onClick={onClick} className="tactile-btn" type="button">
+      <button
+        onClick={(e) => {
+          (e.currentTarget as HTMLButtonElement).blur();
+          onClick?.();
+        }}
+        className="tactile-btn"
+        type="button"
+      >
         <div className="tactile-fabric" />
 
         <span className="tactile-txt">{label}</span>
-        <span className="tactile-txt">{activeLabel}</span>
 
         <div className="tactile-shadow left" />
         <div className="tactile-shadow right" />
