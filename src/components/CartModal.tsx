@@ -58,6 +58,31 @@ export const CartModal: React.FC = () => {
   const waLink = `https://wa.me/79675015113?text=${encodedText}`;
   const tgLink = `https://t.me/by_siedina?text=${encodedText}`;
 
+  // Генерация ссылки для прямого оформления в @by_siedina_bot с подтягиванием состава заказа
+  const buildBotLink = () => {
+    try {
+      const orderPayload = {
+        items: items.map((item) => ({
+          title: item.title,
+          quantity: item.quantity,
+          price: item.price,
+          details: item.details || '',
+        })),
+      };
+      const jsonString = JSON.stringify(orderPayload);
+      const base64Data = btoa(
+        encodeURIComponent(jsonString).replace(/%([0-9A-F]{2})/g, (_, p1) =>
+          String.fromCharCode(parseInt(p1, 16))
+        )
+      );
+      const urlSafe = base64Data.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      return `https://t.me/by_siedina_bot?start=order_${urlSafe}`;
+    } catch {
+      return `https://t.me/by_siedina_bot`;
+    }
+  };
+  const botLink = buildBotLink();
+
   if (!isOpen) return null;
 
   return (
@@ -295,25 +320,38 @@ export const CartModal: React.FC = () => {
 
               {/* Кнопки мгновенной отправки заказа */}
               <div className="flex flex-col gap-2 pt-1">
+                {/* 1. Интерактивный Telegram-бот студии */}
+                <a
+                  href={botLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-[#229ED9] to-[#0088cc] hover:from-[#1e8dbf] hover:to-[#0077b5] text-white font-black text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-[0_8px_25px_rgba(34,158,217,0.4)] cursor-pointer"
+                >
+                  <Send className="w-4 h-4" />
+                  Оформить через Telegram-бота
+                  <ArrowRight className="w-4 h-4 ml-1" />
+                </a>
+
+                {/* 2. Отправка в WhatsApp */}
                 <a
                   href={waLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3.5 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-black font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg"
+                  className="w-full py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-black font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4 fill-black" />
-                  Отправить весь заказ в WhatsApp
-                  <ArrowRight className="w-4 h-4 ml-1" />
+                  Отправить заказ в WhatsApp
                 </a>
 
+                {/* 3. Отправка менеджеру в Telegram */}
                 <a
                   href={tgLink}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-3 px-4 rounded-xl bg-[#229ED9] hover:bg-[#1e8dbf] text-white font-bold text-sm flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md"
+                  className="w-full py-2.5 px-4 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer"
                 >
-                  <Send className="w-4 h-4" />
-                  Отправить весь заказ в Telegram
+                  <Send className="w-3.5 h-3.5" />
+                  Написать напрямую менеджеру @by_siedina
                 </a>
 
                 <a
