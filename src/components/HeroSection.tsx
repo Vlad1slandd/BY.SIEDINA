@@ -1,8 +1,12 @@
 import React from 'react';
 import { FadeIn } from './FadeIn';
 import { ContactButton } from './ContactButton';
+import { ShoppingBag } from 'lucide-react';
+import { useCart } from '../context/CartContext';
 
 export const HeroSection: React.FC = () => {
+  const { totalCount, openCart } = useCart();
+
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -35,6 +39,21 @@ export const HeroSection: React.FC = () => {
               <span className="absolute bottom-0 left-0 w-0 h-[2.5px] sm:h-[3px] bg-gradient-to-r from-[#EAD6E2] via-white to-[#C2D1DC] transition-all duration-300 ease-out group-hover:w-full rounded-full shadow-[0_0_10px_rgba(255,255,255,0.6)]" />
             </button>
           ))}
+
+          {/* Иконка корзины в шапке */}
+          <button
+            onClick={openCart}
+            className="relative p-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white transition-all hover:scale-105 active:scale-95 cursor-pointer ml-1"
+            title="Открыть корзину"
+            aria-label="Корзина"
+          >
+            <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6" />
+            {totalCount > 0 && (
+              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-rose-600 text-white text-[10px] font-black flex items-center justify-center shadow-md animate-pulse">
+                {totalCount}
+              </span>
+            )}
+          </button>
         </div>
       </FadeIn>
 

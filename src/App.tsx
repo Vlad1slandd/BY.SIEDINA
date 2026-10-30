@@ -7,6 +7,9 @@ import { ProjectsSection } from './components/ProjectsSection';
 import { Footer } from './components/Footer';
 import { CookieBanner } from './components/CookieBanner';
 import { PrivacyPolicyModal, CookieSettingsModal, CookiePreferences } from './components/LegalModals';
+import { CartProvider } from './context/CartContext';
+import { CartModal } from './components/CartModal';
+import { FloatingCartButton } from './components/FloatingCartButton';
 
 const COOKIE_STORAGE_KEY = 'by_siedina_cookie_consent';
 
@@ -60,49 +63,57 @@ export default function App() {
   };
 
   return (
-    <div className="bg-[#140F17] text-[#EDE4EA] font-kanit selection:bg-white/20 selection:text-white" style={{ overflowX: 'clip' }}>
-      {/* 1. ГЛАВНЫЙ ЭКРАН */}
-      <HeroSection />
+    <CartProvider>
+      <div className="bg-[#140F17] text-[#EDE4EA] font-kanit selection:bg-white/20 selection:text-white" style={{ overflowX: 'clip' }}>
+        {/* 1. ГЛАВНЫЙ ЭКРАН */}
+        <HeroSection />
 
-      {/* 2. БЕГУЩАЯ СТРОКА С ФОТОГРАФИЯМИ */}
-      <MarqueeSection />
+        {/* 2. БЕГУЩАЯ СТРОКА С ФОТОГРАФИЯМИ */}
+        <MarqueeSection />
 
-      {/* 3. О НАС */}
-      <AboutSection />
+        {/* 3. О НАС */}
+        <AboutSection />
 
-      {/* 4. УСЛУГИ */}
-      <ServicesSection />
+        {/* 4. УСЛУГИ */}
+        <ServicesSection />
 
-      {/* 5. КАТАЛОГ И ИНТЕРАКТИВНЫЙ КОНСТРУКТОР БУКЕТОВ */}
-      <ProjectsSection />
+        {/* 5. КАТАЛОГ И ИНТЕРАКТИВНЫЙ КОНСТРУКТОР БУКЕТОВ */}
+        <ProjectsSection />
 
-      {/* 6. ПОДВАЛ И КОНТАКТЫ ПО ОБРАЗЦУ */}
-      <Footer
-        onOpenPrivacy={() => setIsPrivacyOpen(true)}
-        onOpenCookies={() => setIsCookieModalOpen(true)}
-      />
-
-      {/* Всплывающий баннер файлов cookie */}
-      {showCookieBanner && (
-        <CookieBanner
-          onAcceptAll={handleAcceptAllCookies}
-          onOpenDetails={() => setIsCookieModalOpen(true)}
+        {/* 6. ПОДВАЛ И КОНТАКТЫ ПО ОБРАЗЦУ */}
+        <Footer
+          onOpenPrivacy={() => setIsPrivacyOpen(true)}
+          onOpenCookies={() => setIsCookieModalOpen(true)}
         />
-      )}
 
-      {/* Модальное окно политики конфиденциальности */}
-      <PrivacyPolicyModal
-        isOpen={isPrivacyOpen}
-        onClose={() => setIsPrivacyOpen(false)}
-      />
+        {/* Плавающая кнопка корзины (появляется, когда в корзине есть букеты) */}
+        <FloatingCartButton />
 
-      {/* Модальное окно положения об использовании cookie с настройками */}
-      <CookieSettingsModal
-        isOpen={isCookieModalOpen}
-        onClose={() => setIsCookieModalOpen(false)}
-        preferences={preferences}
-        onSavePreferences={handleSaveCookiePreferences}
-      />
-    </div>
+        {/* Сайдбар модального окна корзины */}
+        <CartModal />
+
+        {/* Всплывающий баннер файлов cookie */}
+        {showCookieBanner && (
+          <CookieBanner
+            onAcceptAll={handleAcceptAllCookies}
+            onOpenDetails={() => setIsCookieModalOpen(true)}
+          />
+        )}
+
+        {/* Модальное окно политики конфиденциальности */}
+        <PrivacyPolicyModal
+          isOpen={isPrivacyOpen}
+          onClose={() => setIsPrivacyOpen(false)}
+        />
+
+        {/* Модальное окно положения об использовании cookie с настройками */}
+        <CookieSettingsModal
+          isOpen={isCookieModalOpen}
+          onClose={() => setIsCookieModalOpen(false)}
+          preferences={preferences}
+          onSavePreferences={handleSaveCookiePreferences}
+        />
+      </div>
+    </CartProvider>
   );
 }

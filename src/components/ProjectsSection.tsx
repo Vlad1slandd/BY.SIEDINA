@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FadeIn } from './FadeIn';
+import { useCart } from '../context/CartContext';
 import { 
   Sparkles, 
   Plus, 
@@ -180,6 +181,7 @@ const PACKAGING_OPTIONS = [
 ] as const;
 
 export const ProjectsSection: React.FC = () => {
+  const { addItem } = useCart();
   // Фильтр для готовых букетов
   const [activeTab, setActiveTab] = useState<'all' | 'authors' | 'hits' | 'boxes'>('all');
   const [favoriteIds, setFavoriteIds] = useState<string[]>([]);
@@ -300,18 +302,20 @@ export const ProjectsSection: React.FC = () => {
     return sum;
   }, [flowers, greens, packaging, aquabox]);
 
-  // Открыть модалку для готового букета
-  const handleQuickOrder = (b: ReadyBouquet) => {
-    setOrderSummary({
-      title: `Готовый букет: «${b.name}»`,
-      details: `Состав: ${b.composition.join(', ')}. Стоимость: ${b.price.toLocaleString('ru-RU')} ₽.`,
-      totalPrice: b.price,
+  // Добавить готовый букет в корзину
+  const handleAddToCart = (b: ReadyBouquet) => {
+    addItem({
+      type: 'ready',
+      title: `Букет «${b.name}»`,
+      subtitle: b.tag,
+      image: b.image,
+      price: b.price,
+      details: `Состав: ${b.composition.join(', ')}`,
     });
-    setIsModalOpen(true);
   };
 
-  // Открыть модалку для собранного в калькуляторе букета
-  const handleCustomOrder = () => {
+  // Добавить собранный букет в корзину
+  const handleAddCustomToCart = () => {
     const selectedFlowersList = flowerCatalog
       .filter((f) => flowers[f.key] > 0)
       .map((f) => `${f.name} — ${flowers[f.key]} ${f.unit}`)
@@ -334,12 +338,13 @@ export const ProjectsSection: React.FC = () => {
       .filter(Boolean)
       .join('\n');
 
-    setOrderSummary({
+    addItem({
+      type: 'custom',
       title: 'Индивидуальный букет из Конструктора',
+      subtitle: `${totalFlowerCount} цветов • ${packName}`,
+      price: totalPrice,
       details,
-      totalPrice,
     });
-    setIsModalOpen(true);
   };
 
   // Генерация ссылок WhatsApp / Telegram
@@ -469,16 +474,16 @@ export const ProjectsSection: React.FC = () => {
                         {/* Кнопки действий */}
                         <div className="pt-3 border-t border-white/5 flex items-center gap-2">
                           <button
-                            onClick={() => handleQuickOrder(b)}
-                            className="flex-1 py-2 px-3 rounded-xl bg-white text-black text-xs sm:text-sm font-semibold hover:bg-neutral-200 transition-colors flex items-center justify-center gap-1.5"
+                            onClick={() => handleAddToCart(b)}
+                            className="flex-1 py-2 px-3 rounded-xl bg-white text-black text-xs sm:text-sm font-semibold hover:bg-neutral-200 transition-all active:scale-95 flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
                           >
                             <ShoppingBag className="w-3.5 h-3.5" />
-                            Заказать
+                            В корзину
                           </button>
                           <button
                             onClick={() => loadPresetIntoCalculator(b.calcPreset)}
                             title="Перенести состав в конструктор"
-                            className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm text-neutral-300 hover:text-white transition-colors flex items-center gap-1.5"
+                            className="py-2 px-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-xs sm:text-sm text-neutral-300 hover:text-white transition-all active:scale-95 flex items-center gap-1.5 cursor-pointer"
                           >
                             <Sliders className="w-3.5 h-3.5 text-[#BBCCD7]" />
                             <span className="hidden sm:inline">В конструктор</span>
@@ -697,16 +702,16 @@ export const ProjectsSection: React.FC = () => {
                 </div>
 
                 <button
-                  onClick={handleCustomOrder}
+                  onClick={handleAddCustomToCart}
                   disabled={totalPrice <= 0}
                   className={`w-full py-3.5 px-4 rounded-2xl font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2 transition-all ${
                     totalPrice > 0
-                      ? 'bg-white text-black hover:bg-neutral-200 active:scale-[0.99] shadow-xl'
+                      ? 'bg-white text-black hover:bg-neutral-200 active:scale-[0.99] shadow-xl cursor-pointer'
                       : 'bg-white/10 text-neutral-500 cursor-not-allowed'
                   }`}
                 >
                   <ShoppingBag className="w-4 h-4" />
-                  Заказать собранный букет
+                  Добавить букет в корзину
                   <ArrowRight className="w-4 h-4 ml-1" />
                 </button>
               </div>
