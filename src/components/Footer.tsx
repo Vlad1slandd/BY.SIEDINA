@@ -68,27 +68,22 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
 
           {/* Правая колонка: Сквозные ссылки на документы (соответствие ст. 18.1 Закона 152-ФЗ) */}
-          <div className="flex flex-col items-center md:items-end gap-1.5 shrink-0">
+          <div className="flex flex-col items-center md:items-end gap-1.5 shrink-0 ref-footer-right">
             <a
-              href="./privacy/"
+              href="#privacy"
               onClick={(e) => {
-                // Если левый клик без зажатия Ctrl/Cmd, открываем красивую модалку, а href ведет на прямую страницу
-                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                  e.preventDefault();
-                  onOpenPrivacy();
-                }
+                e.preventDefault();
+                onOpenPrivacy();
               }}
               className="text-xs sm:text-sm text-neutral-700 hover:text-[#1C1222] font-semibold transition-colors cursor-pointer hover:underline underline-offset-2"
             >
               Политика конфиденциальности
             </a>
             <a
-              href="./cookies/"
+              href="#cookies"
               onClick={(e) => {
-                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
-                  e.preventDefault();
-                  onOpenCookies();
-                }
+                e.preventDefault();
+                onOpenCookies();
               }}
               className="text-xs sm:text-sm text-neutral-700 hover:text-[#1C1222] font-semibold transition-colors cursor-pointer hover:underline underline-offset-2"
             >
