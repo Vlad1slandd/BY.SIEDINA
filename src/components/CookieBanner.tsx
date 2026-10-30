@@ -25,13 +25,25 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({
             Мы используем необходимые технические и обезличенные аналитические файлы cookie для работы интерактивного
             калькулятора и корректного функционирования сайта в соответствии с законодательством РФ. Ознакомьтесь с
             подробными правилами в нашей{' '}
-            <button
-              onClick={onOpenDetails}
-              type="button"
+            <a
+              href="./cookies/"
+              onClick={(e) => {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                  e.preventDefault();
+                  onOpenDetails();
+                }
+              }}
               className="text-white hover:text-[#BBCCD7] font-semibold underline underline-offset-4 transition-colors cursor-pointer"
             >
               Политике использования файлов Cookie
-            </button>
+            </a>
+            {' '}и{' '}
+            <a
+              href="./privacy/"
+              className="text-white hover:text-[#BBCCD7] font-semibold underline underline-offset-4 transition-colors cursor-pointer"
+            >
+              Политике конфиденциальности
+            </a>
             .
           </p>
         </div>

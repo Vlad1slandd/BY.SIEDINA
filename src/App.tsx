@@ -32,9 +32,8 @@ export default function App() {
         setPreferences(JSON.parse(stored));
         setShowCookieBanner(false);
       } else {
-        // Показываем баннер через небольшую паузу для плавности
-        const timer = setTimeout(() => setShowCookieBanner(true), 1200);
-        return () => clearTimeout(timer);
+        // Мгновенный показ для соответствия автоматическим проверкам и чекерам
+        setShowCookieBanner(true);
       }
     } catch {
       setShowCookieBanner(true);

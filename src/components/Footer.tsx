@@ -67,22 +67,33 @@ export const Footer: React.FC<FooterProps> = ({
             </div>
           </div>
 
-          {/* Правая колонка: Кликабельные ссылки на документы */}
+          {/* Правая колонка: Сквозные ссылки на документы (соответствие ст. 18.1 Закона 152-ФЗ) */}
           <div className="flex flex-col items-center md:items-end gap-1.5 shrink-0">
-            <button
-              onClick={onOpenPrivacy}
-              type="button"
-              className="text-xs sm:text-sm text-neutral-700 hover:text-[#1C1222] font-medium transition-colors cursor-pointer hover:underline underline-offset-2"
+            <a
+              href="./privacy/"
+              onClick={(e) => {
+                // Если левый клик без зажатия Ctrl/Cmd, открываем красивую модалку, а href ведет на прямую страницу
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                  e.preventDefault();
+                  onOpenPrivacy();
+                }
+              }}
+              className="text-xs sm:text-sm text-neutral-700 hover:text-[#1C1222] font-semibold transition-colors cursor-pointer hover:underline underline-offset-2"
             >
               Политика конфиденциальности
-            </button>
-            <button
-              onClick={onOpenCookies}
-              type="button"
-              className="text-xs sm:text-sm text-neutral-700 hover:text-[#1C1222] font-medium transition-colors cursor-pointer hover:underline underline-offset-2"
+            </a>
+            <a
+              href="./cookies/"
+              onClick={(e) => {
+                if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+                  e.preventDefault();
+                  onOpenCookies();
+                }
+              }}
+              className="text-xs sm:text-sm text-neutral-700 hover:text-[#1C1222] font-semibold transition-colors cursor-pointer hover:underline underline-offset-2"
             >
               Правила использования cookie
-            </button>
+            </a>
           </div>
 
         </div>
