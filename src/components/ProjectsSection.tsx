@@ -528,7 +528,7 @@ export const ProjectsSection: React.FC = () => {
 
           {/* --- ПРАВАЯ ПОЛОВИНА: КАЛЬКУЛЯТОР БУКЕТА (5 КОЛОНОК, STICKY) --- */}
           <div className="lg:col-span-5" id="bouquet-calculator">
-            <div className="sticky top-24 bg-[#141518] sm:bg-[#141518]/95 sm:backdrop-blur-xl border border-white/10 rounded-3xl p-5 sm:p-7 shadow-2xl flex flex-col gap-6">
+            <div className="static lg:sticky lg:top-24 bg-[#141518] sm:bg-[#141518]/95 sm:backdrop-blur-xl border border-white/10 rounded-3xl p-5 sm:p-7 shadow-2xl flex flex-col gap-6">
               
               {/* Заголовок калькулятора */}
               <div className="flex items-center justify-between pb-4 border-b border-white/10">

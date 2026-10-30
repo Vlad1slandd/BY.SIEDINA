@@ -170,8 +170,11 @@
   opacity: 0.5;
 }
 
-/* Оптимизация для мобильных устройств: отключение тяжелых SVG фильтров (feTurbulence) */
+/* Оптимизация для мобильных устройств: отключение тяжелых SVG фильтров (feTurbulence) и упрощение теней */
 @media (max-width: 768px), (pointer: coarse) {
+  .tactile-btn {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
+  }
   .tactile-fabric {
     filter: none !important;
     opacity: 0.15;

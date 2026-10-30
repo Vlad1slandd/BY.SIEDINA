@@ -63,7 +63,7 @@ export default function App() {
 
   return (
     <CartProvider>
-      <div className="bg-[#140F17] text-[#EDE4EA] font-kanit selection:bg-white/20 selection:text-white" style={{ overflowX: 'clip' }}>
+      <div className="bg-[#140F17] text-[#EDE4EA] font-kanit selection:bg-white/20 selection:text-white overflow-x-hidden w-full relative">
         {/* 1. ГЛАВНЫЙ ЭКРАН */}
         <HeroSection />
 
